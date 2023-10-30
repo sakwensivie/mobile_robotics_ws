@@ -10,6 +10,10 @@
   <xacro:property name="M_PI_2" value="1.570796327" />
   <xacro:property name="DEG_TO_RAD" value="0.017453293" />
 
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
  <!-- <xacro:macro name="mobile_robot">   -->
 
     <link name="base_footprint"/>
@@ -65,7 +69,7 @@
 
 
         <!-- NOTE This may prevent gazebo from working with this model -->
-	  <joint name="left_wheel_joint" type="fixed">
+	  <joint name="left_wheel_joint" type="continuous">
 	    <origin xyz="-0.06 0 0" rpy="0 0 0"/>
 	    <parent link="base_link"/>
 	    <child link="left_wheel_link"/>
@@ -131,15 +135,14 @@
 	
         <!-- Fixed because we never rotate it anyway, it is just for show -->
         <!-- NOTE This may prevent gazebo from working with this model -->
-	  <joint name="right_wheel_joint" type="fixed">
+	  <joint name="right_wheel_joint" type="continuous">
 	    <origin xyz="0.06 0 0" rpy="0 0 0"/>
 	    <parent link="base_link"/>
 	    <child link="right_wheel_link"/>
 	    <axis xyz="1 0 0"/>
 	  </joint>
 	
-
-<!--   
+  
     <joint name="caster_front_joint" type="fixed">
       <parent link="base_link"/>
       <child link="chefbot_caster_front_link"/>
@@ -162,7 +165,7 @@
                  izz="0.001" />
       </inertial>
     </link>
--->    
+   
     <joint name="robot_caster_back_joint" type="fixed">
       <parent link="base_link"/>
       <child link="robot_caster_back_link"/>
@@ -189,7 +192,7 @@
 	    <collision>
 	      <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
 	      <geometry>
-            		<cylinder radius="0.01" length = "0.1"/>
+            	<cylinder radius="0.01" length = "0.1"/>
 	      </geometry>
 	    </collision>
 	  </link>
