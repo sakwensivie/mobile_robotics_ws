@@ -14,8 +14,8 @@
 /////////////////////////////////////////////////////////////////
 //Motor, Encoder and IR sensor pin definition
 
-int encoder_pinA = 2;    
-int encoder_pinB = 3;
+int encoder_pinA = 3;    
+int encoder_pinB = 2;
                              
 volatile int pulses1 = 0;  
 volatile int pulses2 = 0;      
@@ -24,13 +24,17 @@ volatile int pulses2 = 0;
 
 //Motor A
 int enableA = 5;
-int MotorA1 = 6;
-int MotorA2 = 7;
+int MotorA1 = 12;
+int MotorA2 = 8;
  
 //Motor B
 int enableB = 11;
-int MotorB1 = 10;
-int MotorB2 = 9;
+int MotorB1 = 7;
+int MotorB2 = 4;
+
+//Ultrasonic sensor
+// int ECHO = 9;
+// int TRIG = 10;
 
 /////////////////////////////////////////////////////////////////////////////////////
 
