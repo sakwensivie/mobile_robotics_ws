@@ -71,16 +71,16 @@ speedBindings={
           }
 
 def getKey():
+    '''Get the key being pressed on the keyboard
     '''
-    '''
-    tty.setraw(sys.stdin.fileno())
-    rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
-    if rlist:
-        key = sys.stdin.read(1)
+    tty.setraw(sys.stdin.fileno()) # set the terminal to raw mode
+    rlist, _, _ = select.select([sys.stdin], [], [], 0.1) # get key pressed on keyboard
+    if rlist: # if key is pressed
+        key = sys.stdin.read(1) # read the key
     else:
         key = ''
 
-    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings) # set the terminal to normal mode
     return key
 
 #speed = .2
@@ -88,10 +88,12 @@ speed = 30
 turn = 30
 
 def vels(speed, turn):
-    return "currently:\tspeed %s\tturn %s " % (speed,turn)
+    '''return the velocity the turn of the robot
+    '''
+    return "currently:\tspeed %s\tturn %s " % (speed, turn)
 
 if __name__=="__main__":
-    settings = termios.tcgetattr(sys.stdin)
+    settings = termios.tcgetattr(sys.stdin) # get the terminal attributes
     
     rospy.init_node('robot_teleop')
     pub = rospy.Publisher('~cmd_vel', Twist, queue_size=5)
@@ -107,8 +109,17 @@ if __name__=="__main__":
     control_turn = 0
     try:
         print (msg)
-        print (vels(speed,turn))
+        print (vels(speed, turn))
         while(1):
+            ''' Main loop of the program
+                1. gets key from keyboard
+                2. check if moveBindings or speedBindings
+                3. set x and th to corresponding bindings
+                4. set target speeds
+                5. use target speeds to set control speeds
+                6. publish the control speeds for arduino to control robot
+                7. finally stop robot completly
+            '''
             key = getKey()
             if key in moveBindings.keys():
                 x = moveBindings[key][0]
@@ -126,7 +137,7 @@ if __name__=="__main__":
 
                 count = 0
 
-                print (vels(speed,turn))
+                print (vels(speed, turn))
                 if (status == 14):
                     print (msg)
                 status = (status + 1) % 15

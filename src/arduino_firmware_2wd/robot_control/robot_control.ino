@@ -9,6 +9,8 @@
 #include <std_msgs/Int32.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
+#include <UltrasonicSensor.h>
+
 
 
 /////////////////////////////////////////////////////////////////
@@ -20,7 +22,7 @@ int encoder_pinB = 2;
 volatile int pulses1 = 0;  
 volatile int pulses2 = 0;      
 
-#define IR_PIN A0
+//#define IR_PIN A0
 
 //Motor A
 int enableA = 5;
@@ -33,8 +35,9 @@ int MotorB1 = 7;
 int MotorB2 = 4;
 
 //Ultrasonic sensor
-// int ECHO = 9;
-// int TRIG = 10;
+ int ECHO = 9;
+ int TRIG = 10;
+UltrasonicSensor ultrasonic(TRIG, ECHO);
 
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -194,15 +197,27 @@ void setup_wheelencoder()
 
 //NB: In this particular project, an Ultrasonic sensor is used hence this may be commented out
 
-void update_IR()
-{
- 
-  float volts = analogRead(IR_PIN)*0.0048828125;  // value from sensor * (5/1024)
-  float distance = 13*pow(volts, -1); // worked out from datasheet graph
+//void update_IR()
+//{
+// 
+//  float volts = analogRead(IR_PIN)*0.0048828125;  // value from sensor * (5/1024)
+//  float distance = 13*pow(volts, -1); // worked out from datasheet graph
+//
+//  sharp_msg.data = distance;
+//  sharp_distance_pub.publish(&sharp_msg);
+// 
+//}
 
-  sharp_msg.data = distance;
+/**
+ * @brief gets ultrasonic data and publishes it
+ * 
+ * @return void
+ * 
+ */
+void update_US()
+{
+  sharp_msg.data = (float)ultrasonic.distanceInCentimeters();
   sharp_distance_pub.publish(&sharp_msg);
- 
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -296,6 +311,9 @@ void setup()
   //Setup wheel encoders
   setup_wheelencoder();
 
+  // setup ultrasonic sensor
+  
+
   //Initialize ROS node
   nh.initNode();
 
@@ -333,7 +351,8 @@ void loop()
     l_enc_pub.publish(&l_encoder_msg);
     r_enc_pub.publish(&r_encoder_msg);
 
-    update_IR();
+//    update_IR();
+    update_US();
   
   }
 
