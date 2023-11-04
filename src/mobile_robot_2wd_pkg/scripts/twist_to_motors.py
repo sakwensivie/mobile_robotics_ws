@@ -29,12 +29,13 @@ from numpy import interp
 #############################################################
 #############################################################
 class TwistToMotors():
-#############################################################
-#############################################################
+    '''Class for subscribing to twist message and publish 
+    motor control commands to arduino serial node.
+    '''
 
-    #############################################################
     def __init__(self):
-    #############################################################
+        ''' Initialize ros parameters,
+        '''
         rospy.init_node("twist_to_motors")
         nodename = rospy.get_name()
         rospy.loginfo("%s started" % nodename)
@@ -64,6 +65,8 @@ class TwistToMotors():
         self.right = 0
     
     def shutdown_cb(self):
+        ''' Stop motors when shutting down
+        '''
         rospy.logwarn("Resetting board")
         self.pub_lmotor.publish(0)
         self.pub_rmotor.publish(0)
@@ -73,10 +76,9 @@ class TwistToMotors():
 
         pass
 
-    #############################################################
     def spin(self):
-    #############################################################
-    
+        ''' main loop of driver
+        '''
         r = rospy.Rate(self.rate)
         idle = rospy.Rate(10)
         then = rospy.Time.now()
@@ -90,9 +92,9 @@ class TwistToMotors():
                 r.sleep()
             idle.sleep()
                 
-    #############################################################
     def spinOnce(self):
-    #############################################################
+        ''' Publish motor commands for one loop
+        '''
     
         # dx = (l + r) / 2
         # dr = (r - l) / w
@@ -114,17 +116,15 @@ class TwistToMotors():
 
         self.ticks_since_target += 1
 
-    #############################################################
-    def twistCallback(self,msg):
-    #############################################################
+    def twistCallback(self, msg):
+        '''Gets assign twist message to class variables
+        '''
         # rospy.loginfo("-D- twistCallback: %s" % str(msg))
         self.ticks_since_target = 0
         self.dx = msg.linear.x
         self.dr = msg.angular.z
         self.dy = msg.linear.y
     
-#############################################################
-#############################################################
 if __name__ == '__main__':
     """ main """
     twistToMotors = TwistToMotors()
