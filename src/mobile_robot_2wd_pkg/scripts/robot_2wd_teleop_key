@@ -128,11 +128,11 @@ if __name__=="__main__":
             elif key in speedBindings.keys():
 
 		#Modified for mobile robot
-                #speed = speed * speedBindings[key][0]
-                #turn = turn * speedBindings[key][1]
+                speed = speed * speedBindings[key][0]
+                turn = turn * speedBindings[key][1]
 
-                speed = speed 
-                turn = turn 
+                # speed = speed 
+                # turn = turn 
 
 
                 count = 0
