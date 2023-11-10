@@ -15,7 +15,7 @@
 
 
   <node pkg="mobile_robot_2wd_pkg" type="twist_to_motors.py" name="twist_to_motors" output="screen"/>
-  <!-- <node pkg="mobile_robot_2wd_pkg" type="robot_2wd_teleop_key" name="robot_teleop" /> -->
+  <node pkg="mobile_robot_2wd_pkg" type="robot_2wd_teleop_key" name="robot_teleop" />
   <!-- Load teleop -->
   <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
     <param name="default_topic" value="cmd_vel"/>

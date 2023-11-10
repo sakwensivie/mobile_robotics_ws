@@ -3,7 +3,7 @@
 
     <arg name="model"/>
     
-    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mobile_robot_2wd_description)/urdf/robot_model.xacro" />
+    <param name="robot_description" command="$(find xacro)/xacro $(find mobile_robot_2wd_description)/urdf/robot_model.xacro" />
 
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
     <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" />
