@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 
-''' This node implements the basic behavior algorithms of
-mobile robots based on the Bratenberg Vehicles as presented
-in the book Elements of Robotics by Mordechai Ben-Ari and Francescq Mondada
-'''
-import rospy
-import sys
+# ''' This node implements the basic behavior algorithms of
+# mobile robots based on the Bratenberg Vehicles as presented
+# in the book Elements of Robotics by Mordechai Ben-Ari and Francescq Mondada
+# '''
+# import rospy
+# import sys
 
 
-behaviors = {}
+# behaviors = {}
 
 
-if __name__ == '__main__':
-    pass
+# if __name__ == '__main__':
+#     try:
+#         while (not rospy.is_shutdown()):
+#             behaviors[sys.argv[1]]
+#     except rospy.ROSInterruptException:
+#         pass
+    
